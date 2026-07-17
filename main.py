@@ -1,7 +1,11 @@
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
+from pathlib import Path
 import os
+
+outputFolder = Path("output")
+outputFolder.mkdir(exist_ok=True)
 
 image = Image.new("RGB", (1800, 1200), "white")
 draw = ImageDraw.Draw(image)
@@ -28,8 +32,9 @@ y = ImageHeight / 2
 draw.text((x, y), UserText, fill="black", font=font, anchor="mm")
 
 image.save("output/output.png")
+image.show()
 
-answer = input("Do you want to delete the output picture? (y/n)")
+answer = input("Do you want to delete the output picture? (y)")
 
 if answer == "y":
     print("Deleted!")
