@@ -54,49 +54,51 @@ while True:
     ProgrammCommand = input("> ")
     CommandPart = ProgrammCommand.split()
 
-    if CommandPart[0] == "run":
-        CreateImage()
+    if len(CommandPart) > 0:
+        if CommandPart[0] == "run":
+            CreateImage()
 
-    elif CommandPart[0] == "set":
-        if len(CommandPart) < 3:
-            print(f"{RED}[ERROR] Parameter missing. Command use: set [setting] [value]{RESET}")
-        else:
-            if CommandPart[1] == "fontSize":
-                if int(CommandPart[2]) > 0:
-                    settings["fontSize"] = int(CommandPart[2])
-                    print(f"{CYAN}[INFO] Success! Font size is {settings["fontSize"]} now.{RESET}")
-                else:
-                    print(f"{RED}[ERROR] Value cannot be 0 or negative.{RESET}")
-            elif CommandPart[1] == "HSize":
-                if int(CommandPart[2]) > 0:
-                    settings["HSize"] = int(CommandPart[2])
-                    print(f"{CYAN}[INFO] Success! Horizontal size is {settings["HSize"]} now.{RESET}")
-                else:
-                    print(f"{RED}[ERROR] Value cannot be 0 or negative.{RESET}")
-            elif CommandPart[1] == "VSize":
-                if int(CommandPart[2]) > 0:
-                    settings["VSize"] = int(CommandPart[2])
-                    print(f"{CYAN}[INFO] Success! Vertical size is {settings["VSize"]} now.{RESET}")
-                else:
-                    print(f"{RED}[ERROR] Value cannot be 0 or negative.{RESET}")
+        elif CommandPart[0] == "set":
+            if len(CommandPart) < 3:
+                print(f"{RED}[ERROR] Parameter missing. Command use: set [setting] [value]{RESET}")
             else:
-                print(f"{RED}[ERROR] Invalid setting. Please use 'help' for more info.{RESET}")
+                if CommandPart[1] == "fontSize":
+                    if int(CommandPart[2]) > 0:
+                        settings["fontSize"] = int(CommandPart[2])
+                        print(f"{CYAN}[INFO] Success! Font size is {settings["fontSize"]} now.{RESET}")
+                    else:
+                        print(f"{RED}[ERROR] Value cannot be 0 or negative.{RESET}")
+                elif CommandPart[1] == "HSize":
+                    if int(CommandPart[2]) > 0:
+                        settings["HSize"] = int(CommandPart[2])
+                        print(f"{CYAN}[INFO] Success! Horizontal size is {settings["HSize"]} now.{RESET}")
+                    else:
+                        print(f"{RED}[ERROR] Value cannot be 0 or negative.{RESET}")
+                elif CommandPart[1] == "VSize":
+                    if int(CommandPart[2]) > 0:
+                        settings["VSize"] = int(CommandPart[2])
+                        print(f"{CYAN}[INFO] Success! Vertical size is {settings["VSize"]} now.{RESET}")
+                    else:
+                        print(f"{RED}[ERROR] Value cannot be 0 or negative.{RESET}")
+                else:
+                    print(f"{RED}[ERROR] Invalid setting. Please use 'help' for more info.{RESET}")
 
-    elif CommandPart[0] == "delete":
-        confirm = input("Are you sure you want to delete the latest output image? (y/n)")
-        if confirm == "y":
-            if Path("output/output.png").exists():
-                os.remove("output/output.png")
-                print(f"{CYAN}[INFO] Latest output image has been deleted.{RESET}")
+        elif CommandPart[0] == "delete":
+            confirm = input("Are you sure you want to delete the latest output image? (y/n)")
+            if confirm == "y":
+                if Path("output/output.png").exists():
+                    os.remove("output/output.png")
+                    print(f"{CYAN}[INFO] Latest output image has been deleted.{RESET}")
+                else:
+                    print(f"{RED}[ERROR] There is no output image to delete.{RESET}")
             else:
-                print(f"{RED}[ERROR] There is no output image to delete.{RESET}")
+                print(f"{CYAN}[INFO] Deletion cancelled.{RESET}")
+        elif CommandPart[0] == "exit":
+            break
         else:
-            print(f"{CYAN}[INFO] Deletion cancelled.{RESET}")
-    elif CommandPart[0] == "exit":
-        break
+            print(f"{RED}[ERROR] Command not found. Please enter a valid command.{RESET}")
     else:
-        print(f"{RED}[ERROR] Command not found. Please enter a valid command.{RESET}")
-
+         print(f"{RED}[ERROR] Command not found. Please enter a valid command.{RESET}")
 
 
 
