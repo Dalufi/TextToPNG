@@ -14,10 +14,31 @@ YELLOW = "\033[33m"
 CYAN = "\033[36m"
 RESET = "\033[0m"
 
+print(f"{GREEN}Welcome to the TextToPNG terminal! Use 'help' for the list of the currently available commands.{RESET}")
+
 settings = {
     "fontSize": 500,
     "HSize": 1800,
     "VSize": 1200
+}
+
+COMMANDLIST = {
+    "run": {
+        "description": "Starts the program",
+        "usage": "run"
+    },
+    "set": {
+        "description": "Can change the default settings for the program",
+        "usage": "set [setting] [value]"
+    },
+    "delete": {
+        "description": "Deletes the latest created file",
+        "usage": "delete"
+    },
+    "exit": {
+        "description": "Exits the program",
+        "usage": "exit"
+    }
 }
 
 def CreateImage():
@@ -51,12 +72,20 @@ def CreateImage():
 
 while True:
 
-    ProgrammCommand = input("> ")
-    CommandPart = ProgrammCommand.split()
+    ProgramCommand = input("> ")
+    CommandPart = ProgramCommand.split()
 
     if len(CommandPart) > 0:
         if CommandPart[0] == "run":
             CreateImage()
+
+        elif CommandPart[0] == "help":
+            print("Available commands:\n")
+                  
+            for command, info in COMMANDLIST.items():
+                print(f"{command}")
+                print(f"  {info['description']}")
+                print(f"  Usage: {info['usage']}\n")
 
         elif CommandPart[0] == "set":
             if len(CommandPart) < 3:
@@ -102,4 +131,4 @@ while True:
 
 
 
-print(f"{CYAN}[INFO] Ending Programm{RESET}")
+print(f"{CYAN}[INFO] Ending Program{RESET}")
