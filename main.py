@@ -38,6 +38,18 @@ COMMANDLIST = {
     "exit": {
         "description": "Exits the program",
         "usage": "exit"
+    },
+    "help": {
+        "description": "Shows you this page",
+        "usage": "help ([specific command])"
+    }
+}
+
+SPECHELP = {
+    "set": {
+        "fontSize": "[fontSize] Allows you to change the size of the font.",
+        "HSize": "[HSize] Allows you to change the horizontal size of the picture (in px)",
+        "VSize": "[VSize] Allows you to change the vertical size of the picture (in px)"
     }
 }
 
@@ -80,16 +92,26 @@ while True:
             CreateImage()
 
         elif CommandPart[0] == "help":
-            print("Available commands:\n")
-                  
-            for command, info in COMMANDLIST.items():
-                print(f"{command}")
-                print(f"  {info['description']}")
-                print(f"  Usage: {info['usage']}\n")
+            if len(CommandPart) == 2:
+                if CommandPart[1] == "set":
+                    print("Properties of 'set': \n")
+
+                    for command, description in SPECHELP["set"].items():
+                        print(command)
+                        print(f"{YELLOW}" + description + f"{RESET} \n")
+                else:
+                    print(f"{RED}[ERROR] Command not found or command has no arguments")
+            else:
+                print("Available commands:\n")
+                    
+                for command, info in COMMANDLIST.items():
+                    print(f"{command}")
+                    print(f"  {info['description']}")
+                    print(f"  Usage: {info['usage']}\n")
 
         elif CommandPart[0] == "set":
             if len(CommandPart) < 3:
-                print(f"{RED}[ERROR] Parameter missing. Command use: set [setting] [value]{RESET}")
+                print(f"{RED}[ERROR] Argument missing. Command use: set [setting] [value]{RESET}")
             else:
                 if CommandPart[1] == "fontSize":
                     if int(CommandPart[2]) > 0:
