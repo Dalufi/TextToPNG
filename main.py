@@ -19,7 +19,7 @@ print(f"{GREEN}Welcome to the TextToPNG terminal! Use 'help' for the list of the
 settings = {
     "fontSize": 500,
     "HSize": 1800,
-    "VSize": 1200
+    "VSize": 1200,
 }
 
 COMMANDLIST = {
@@ -53,6 +53,9 @@ SPECHELP = {
     }
 }
 
+# Some variables
+sizeEdited = False
+
 def CreateImage():
     image = Image.new("RGB", (settings["HSize"], settings["VSize"]), "white")
     draw = ImageDraw.Draw(image)
@@ -61,6 +64,10 @@ def CreateImage():
 
     UserText = input("Enter Text: ")
     fontSize = settings["fontSize"]
+    showWarning = False
+
+    if sizeEdited == True:
+        showWarning = True
 
     while True:
         font = ImageFont.truetype("fonts/arial.ttf", fontSize)
@@ -69,6 +76,10 @@ def CreateImage():
 
         if TextWidth <= image.width:
             break
+
+        if showWarning == True:
+            print(f"{YELLOW}[WARNING] Your chosen font size is too big for you text. The result will be cropped.{RESET}")
+            showWarning = False
         
         fontSize -= 1
 
@@ -114,9 +125,17 @@ while True:
                 print(f"{RED}[ERROR] Argument missing. Command use: set [setting] [value]{RESET}")
             else:
                 if CommandPart[1] == "fontSize":
-                    if int(CommandPart[2]) > 0:
+                    if CommandPart[2] == "reset":
+                        if sizeEdited == True:
+                            settings["fontSize"] = 500
+                            sizeEdited = False
+                        else:
+                            print(f"{RED}[ERROR] The font size wasn't changed by user.{RESET}")
+                    elif int(CommandPart[2]) > 0:
                         settings["fontSize"] = int(CommandPart[2])
                         print(f"{CYAN}[INFO] Success! Font size is {settings["fontSize"]} now.{RESET}")
+                        if sizeEdited == False:
+                            sizeEdited = True
                     else:
                         print(f"{RED}[ERROR] Value cannot be 0 or negative.{RESET}")
                 elif CommandPart[1] == "HSize":
