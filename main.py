@@ -20,6 +20,7 @@ settings = {
     "fontSize": 500,
     "HSize": 1800,
     "VSize": 1200,
+    "font": "arial"
 }
 
 COMMANDLIST = {
@@ -70,7 +71,7 @@ def CreateImage():
         showWarning = True
 
     while True:
-        font = ImageFont.truetype("fonts/arial.ttf", fontSize)
+        font = ImageFont.truetype("fonts/" + settings["font"] + ".ttf", fontSize)
         bbox = draw.textbbox((0, 0), UserText, font=font)
         TextWidth = bbox[2] - bbox[0]
 
