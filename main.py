@@ -1,3 +1,6 @@
+print("Starting...")
+print("")
+
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
@@ -7,6 +10,8 @@ import os
 outputFolder = Path("output")
 outputFolder.mkdir(exist_ok=True)
 
+os.system("title TextToPNG - Terminal interface v0.2.0")
+
 # ANSI-Codes presets
 RED = "\033[31m"
 GREEN = "\033[32m"
@@ -14,13 +19,11 @@ YELLOW = "\033[33m"
 CYAN = "\033[36m"
 RESET = "\033[0m"
 
-print(f"{GREEN}Welcome to the TextToPNG terminal! Use 'help' for the list of the currently available commands.{RESET}")
-
 settings = {
     "fontSize": 500,
     "HSize": 1800,
     "VSize": 1200,
-    "font": "arial"
+    "font": "Roboto"
 }
 
 COMMANDLIST = {
@@ -92,7 +95,8 @@ def CreateImage():
     image.save("output/output.png")
     image.show()
 
-
+print("v0.2.0 TextToPNG")
+print(f"{GREEN}Welcome to the TextToPNG terminal! Use 'help' for the list of the currently available commands.{RESET}")
 
 while True:
 
