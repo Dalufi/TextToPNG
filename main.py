@@ -6,6 +6,8 @@ from PIL import ImageDraw
 from PIL import ImageFont
 from pathlib import Path
 import os
+import sys
+import shutil
 
 outputFolder = Path("output")
 outputFolder.mkdir(exist_ok=True)
@@ -18,6 +20,21 @@ GREEN = "\033[32m"
 YELLOW = "\033[33m"
 CYAN = "\033[36m"
 RESET = "\033[0m"
+
+# Critical error codes
+def Err1():
+    print(f"{RED}[CRITICAL ERROR] No fonts or font type is not supported.{RESET}")
+    sys.exit(f"{YELLOW}[WARNING] Program was ended forcefully{RESET}")
+
+# Startup checks
+if not any(file.suffix.lower() in [".ttf"] for file in Path("fonts").iterdir()):
+    Err1()
+for file in Path("fonts").iterdir():
+    if not file.name ==  "Roboto.ttf":
+        source = Path("assets/mainFont/Roboto.ttf")
+        destination = Path("fonts/Roboto.ttf")
+
+        shutil.copy(source, destination)
 
 settings = {
     "fontSize": 500,
@@ -51,9 +68,10 @@ COMMANDLIST = {
 
 SPECHELP = {
     "set": {
-        "fontSize": "[fontSize] Allows you to change the size of the font.",
+        "fontSize": "[fontSize] Allows you to change the size of the font. Use reset to put this setting back to default.",
         "HSize": "[HSize] Allows you to change the horizontal size of the picture (in px)",
-        "VSize": "[VSize] Allows you to change the vertical size of the picture (in px)"
+        "VSize": "[VSize] Allows you to change the vertical size of the picture (in px)",
+        "font": "[font] Allows you to change the font of the text. You can even add your own fonts in the 'fonts' folder of this program. Use reset to put the font back to default."
     }
 }
 
@@ -94,6 +112,23 @@ def CreateImage():
 
     image.save("output/output.png")
     image.show()
+
+def SetFont(userFont):
+    Folder = Path("fonts")
+    Failed = True
+
+    if userFont == "reset":
+        settings["font"] = "Roboto"
+        print(f"{CYAN}[INFO] Success! Font has been reset to Roboto.{RESET}")
+    else:
+        for file in Folder.iterdir():
+            if file.name == userFont + ".ttf":
+                settings["font"] = userFont
+                Failed = False
+                print(f"{CYAN}[INFO] Success! Font is set to {settings["font"]} now.{RESET}")
+                
+        if Failed == True:
+            print(f"{RED}[ERROR] Font not found. Please check if you've spelled it correctly.{RESET}")
 
 print("v0.2.0 TextToPNG")
 print(f"{GREEN}Welcome to the TextToPNG terminal! Use 'help' for the list of the currently available commands.{RESET}")
@@ -155,6 +190,8 @@ while True:
                         print(f"{CYAN}[INFO] Success! Vertical size is {settings["VSize"]} now.{RESET}")
                     else:
                         print(f"{RED}[ERROR] Value cannot be 0 or negative.{RESET}")
+                elif CommandPart[1] == "font":
+                    SetFont(CommandPart[2])
                 else:
                     print(f"{RED}[ERROR] Invalid setting. Please use 'help' for more info.{RESET}")
 
@@ -168,8 +205,10 @@ while True:
                     print(f"{RED}[ERROR] There is no output image to delete.{RESET}")
             else:
                 print(f"{CYAN}[INFO] Deletion cancelled.{RESET}")
+        
         elif CommandPart[0] == "exit":
             break
+
         else:
             print(f"{RED}[ERROR] Command not found. Please enter a valid command.{RESET}")
     else:
