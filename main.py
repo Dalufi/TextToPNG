@@ -169,6 +169,7 @@ while True:
                         if sizeEdited == True:
                             settings["fontSize"] = 500
                             sizeEdited = False
+                            print(f"{CYAN}[INFO] Success! Font size has been reset.{RESET}")
                         else:
                             print(f"{RED}[ERROR] The font size wasn't changed by user.{RESET}")
                     elif int(CommandPart[2]) > 0:
@@ -179,13 +180,19 @@ while True:
                     else:
                         print(f"{RED}[ERROR] Value cannot be 0 or negative.{RESET}")
                 elif CommandPart[1] == "HSize":
-                    if int(CommandPart[2]) > 0:
+                    if CommandPart[2] == "reset":
+                        settings["HSize"] = 1800
+                        print(f"{CYAN}[INFO] Success! Horizontal size has been reset.{RESET}")
+                    elif int(CommandPart[2]) > 0:
                         settings["HSize"] = int(CommandPart[2])
                         print(f"{CYAN}[INFO] Success! Horizontal size is {settings["HSize"]} now.{RESET}")
                     else:
                         print(f"{RED}[ERROR] Value cannot be 0 or negative.{RESET}")
                 elif CommandPart[1] == "VSize":
-                    if int(CommandPart[2]) > 0:
+                    if CommandPart[2] == "reset":
+                        settings["VSize"] = 1200
+                        print(f"{CYAN}[INFO] Success! Vertical size has been reset.{RESET}")
+                    elif int(CommandPart[2]) > 0:
                         settings["VSize"] = int(CommandPart[2])
                         print(f"{CYAN}[INFO] Success! Vertical size is {settings["VSize"]} now.{RESET}")
                     else:
