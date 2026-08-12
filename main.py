@@ -12,6 +12,9 @@ import shutil
 outputFolder = Path("output")
 outputFolder.mkdir(exist_ok=True)
 
+fontsFolder = Path("fonts")
+fontsFolder.mkdir(exist_ok=True)
+
 os.system("title TextToPNG - Terminal interface v0.2.0")
 
 # ANSI-Codes presets
