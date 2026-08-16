@@ -10,7 +10,7 @@ Pillow is used for image processing, including creating images, drawing text, an
 
 License: MIT-CMU License
 
-Copyright © 2010 by Jeffrey A. Clark and contributors
+Copyright © 2010 by Jeffrey 'Alex' Clark and contributors
 Copyright © 1995-2011 by Fredrik Lundh and contributors
 Copyright © 1997-2011 by Secret Labs AB
 
@@ -31,7 +31,7 @@ This project uses modules from Python's standard library, including:
 
 * pathlib (file and directory path handling)
 
-The Python Standard Library is distributed under the Python Software Foundation License and does not require a separate third-party license notice.
+Python is distributed under the Python Software Foundation License Version 2.
 
 ---
 
@@ -44,7 +44,7 @@ This project comes with three pre-installed fonts you can use, including:
 * Playfair Display
 
 License: OFL (**O**pen **F**ont **L**icense)
-Source: Google fonts (https://fonts.google.com)
+Source: Google Fonts (https://fonts.google.com)
 
 Roboto:
 Copyright 2011 The Roboto Project Authors (https://github.com/googlefonts/roboto-classic)
