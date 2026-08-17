@@ -113,8 +113,10 @@ def CreateImage():
 
     draw.text((x, y), UserText, fill="black", font=font, anchor="mm")
 
-    image.save("output/output.png")
-    os.startfile("output/output.png")
+    outputPath = os.path.abspath("output/output.png")
+
+    image.save(outputPath)
+    os.startfile(outputPath)
 
 def SetFont(userFont):
     Folder = Path("fonts")
