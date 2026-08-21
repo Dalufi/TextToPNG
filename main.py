@@ -9,6 +9,9 @@ import os
 import sys
 import shutil
 
+BASE_DIR = Path(__file__).resolve().parent
+asset_path = BASE_DIR / "assets"
+
 outputFolder = Path("output")
 outputFolder.mkdir(exist_ok=True)
 
@@ -32,12 +35,18 @@ def Err1():
 # Startup checks
 if not any(file.suffix.lower() in [".ttf"] for file in Path("fonts").iterdir()):
     Err1()
-for file in Path("fonts").iterdir():
-    if not file.name ==  "Roboto.ttf":
-        source = Path("assets/mainFont/Roboto.ttf")
-        destination = Path("fonts/Roboto.ttf")
 
-        shutil.copy(source, destination)
+mainFontExists = False
+
+for file in Path("fonts").iterdir():
+    if file.name ==  "Roboto.ttf":
+        mainFontExists = True
+
+if mainFontExists == False:
+    source = asset_path / "mainFont" / "Roboto.ttf"
+    destination = Path("fonts/Roboto.ttf")
+    
+    shutil.copy(source, destination)
 
 settings = {
     "fontSize": 500,
