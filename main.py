@@ -238,3 +238,5 @@ while True:
 
 
 print(f"{CYAN}[INFO] Ending Program{RESET}")
+
+# Fix help command and prepeare everything else for bug hunting.
